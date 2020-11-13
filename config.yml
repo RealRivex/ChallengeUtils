@@ -1,0 +1,44 @@
+reset: false #nicht verändern - kann sonst den Reset verhindern
+resetMessage: "§aDie Welt wird zurückgesetzt. Bitte warte einen Moment..."
+worldName: "world" #Hier den Namen der Default-World angeben. (Standardmäßig "world")
+resetConfirm: true #Wenn aktiviert, muss /reset <confirm> genutzt werden.
+
+#Diese Werte können beliebig verändert werden, um Challenges anzupassen:
+noBlockBreak:
+  punishMessage: "§9<player> §chat einen Block abgebaut. §7[§9<block>§7]" #Nachricht beim Versagen. Parameter: [<block>, <BLOCK>, <player>].
+
+noBlockPlace:
+  punishMessage: "§9<player> §chat einen Block platziert. §7[§9<block>§7]" #Nachricht beim Versagen. Parameter: [<block>, <BLOCK>, <player>].
+
+noCrafting:
+  punishMessage: "§9<player> §chat einen Crafting-Table genutzt." #Nachricht beim Versagen. Parameter: [<player>].
+
+noSneak:
+  punishMessage: "§9<player> §chat gesneaked. §7[§9<block>§7]" #Nachricht beim Versagen. Parameter: [<player>].
+
+forceBlock:
+  punishMessage: "§7[§bForceBlock§7] §aDie Anweisung wurde nicht von allen Spielern befolgt." #Nachricht beim Versagen.
+  passedMessage: "§7[§bForceBlock§7] §aDu hast die Anweisung befolgt." #Nachricht beim passen.
+  minTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)
+  maxTime: 12000 #In Ticks (1 Sekunde = 20 Ticks)
+  minCollectTime: 3600 #In Ticks (1 Sekunde = 20 Ticks)
+  maxCollectTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)
+
+forceItem:
+  punishMessage: "§7[§5ForceItem§7] §aDie Anweisung wurde nicht von allen Spielern befolgt." #Nachricht beim Versagen.
+  passedMessage: "§7[§5ForceItem§7] §aDu hast die Anweisung befolgt." #Nachricht beim passen.
+  minTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)
+  maxTime: 12000 #In Ticks (1 Sekunde = 20 Ticks)
+  minCollectTime: 3600 #In Ticks (1 Sekunde = 20 Ticks)
+  maxCollectTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)
+
+forceY:
+  punishMessage: "§7[§6ForceY§7] §aDie Anweisung wurde nicht von allen Spielern befolgt." #Nachricht beim Versagen.
+  passedMessage: "§7[§6ForceY§7] §aDu hast die Anweisung befolgt." #Nachricht beim passen.
+  minTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)
+  maxTime: 12000 #In Ticks (1 Sekunde = 20 Ticks)
+  minCollectTime: 2400 #In Ticks (1 Sekunde = 20 Ticks)
+  maxCollectTime: 4800 #In Ticks (1 Sekunde = 20 Ticks)
+  minY: 10 #Min. Höhe, welche ausgewählt wird
+  maxY: 200 #Max. Höhe, welche ausgewählt wird
+#
