@@ -1,6 +1,7 @@
 package de.rivex.challengeutils.listeners;
 
 import de.rivex.challengeutils.main.Main;
+import de.rivex.challengeutils.utils.UpdateChecker;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,6 +22,18 @@ public class JoinListener implements Listener {
             if (Main.devMode) {
                 player.sendMessage("§aAktuell nutzt du eine Dev-Version von §9ChallengeUtils§a. Das bedeutet, es kann noch zu Bugs kommen. Solltest du Bugs finden melde diese im Support-Discord :)");
             }
+
+            UpdateChecker.init(Main.getPlugin(), 80158).requestUpdateCheck().whenComplete((result, exception) -> {
+                if (result.requiresUpdate()) {
+                    if (player.isOp()) {
+                        player.sendMessage("§aDie neueste Version von §9ChallengeUtils §aist installiert!");
+                    }
+                } else {
+                    if (player.isOp()) {
+                        player.sendMessage("§cEs gibt eine neuere Version von §9ChallengeUtils§c! Aktuelle Version: §9" + Main.getPlugin().getDescription().getVersion() + " §7| §cNeueste Version: §9" + result.getNewestVersion());
+                    }
+                }
+            });
         }
     }
 

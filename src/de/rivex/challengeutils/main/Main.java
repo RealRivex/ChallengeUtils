@@ -1,15 +1,13 @@
 package de.rivex.challengeutils.main;
 
-import de.rivex.challengeutils.challenges.Break;
-import de.rivex.challengeutils.challenges.CraftingTable;
-import de.rivex.challengeutils.challenges.Place;
-import de.rivex.challengeutils.challenges.Sneak;
+import de.rivex.challengeutils.challenges.*;
 import de.rivex.challengeutils.gamerules.DamageIndicator;
 import de.rivex.challengeutils.listeners.JoinListener;
 import de.rivex.challengeutils.listeners.QuitListener;
 import de.rivex.challengeutils.utils.Reset;
 import de.rivex.challengeutils.utils.SettingsGUI;
 import de.rivex.challengeutils.utils.Timer;
+import de.rivex.challengeutils.utils.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +16,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class Main extends JavaPlugin {
-    private static Main plugin;
     public static boolean devMode;
+    private static Main plugin;
 
     public static Main getPlugin() {
         return plugin;
@@ -40,6 +38,8 @@ public class Main extends JavaPlugin {
             }
             getConfig().set("reset", false);
             saveConfig();
+
+            UpdateChecker.init(this, 85731);
         }
     }
 
@@ -56,5 +56,6 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CraftingTable(), this);
         Bukkit.getPluginManager().registerEvents(new Break(), this);
         Bukkit.getPluginManager().registerEvents(new Sneak(), this);
+        Bukkit.getPluginManager().registerEvents(new RandomDrops(), this);
     }
 }

@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public final class UpdateChecker {
 
     private static final String USER_AGENT = "CHOCO-update-checker";
-    private static final String UPDATE_URL = "https://api.spigotmc.org/simple/0.1/index.php?action=getResource&id=-----";
+    private static final String UPDATE_URL = "https://api.spigotmc.org/simple/0.1/index.php?action=getResource&id=85731";
     private static final Pattern DECIMAL_SCHEME_PATTERN = Pattern.compile("\\d+(?:\\.\\d+)*");
     public static final VersionScheme VERSION_SCHEME_DECIMAL = (first, second) -> {
         String[] firstSplit = splitVersionInfo(first), secondSplit = splitVersionInfo(second);

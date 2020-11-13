@@ -19,9 +19,6 @@ import java.util.Arrays;
 
 public class SettingsGUI implements Listener, CommandExecutor {
 
-    //GUIs
-    private final Inventory settings_challenges = Bukkit.createInventory(null, 54, "§b§lChallenge-Settings");
-
     //Settings states
     public static boolean breakChallenge;
     public static boolean placeChallenge;
@@ -30,8 +27,11 @@ public class SettingsGUI implements Listener, CommandExecutor {
     public static boolean forceYChallenge;
     public static boolean forceBlockChallenge;
     public static boolean forceItemChallenge;
-    public static boolean floorIsLavaChallenge;
+    public static boolean randomDropsChallenge;
+    public static boolean randomCraftingChallenge;
 
+    //GUIs
+    private final Inventory settings_challenges = Bukkit.createInventory(null, 54, "§b§lChallenge-Settings");
 
     private void setItem(int slot, Material material, Inventory inventory, String displayName) {
         ItemStack itemStack = new ItemStack(material);
@@ -58,6 +58,8 @@ public class SettingsGUI implements Listener, CommandExecutor {
         setItem(5, Material.BONE_BLOCK, settings_challenges, "§6ForceY-Challenge", " ", "" + returnSettingsState(forceYChallenge));
         setItem(6, Material.BROWN_WOOL, settings_challenges, "§6ForceBlock-Challenge", " ", "" + returnSettingsState(forceBlockChallenge));
         setItem(7, Material.FLOWER_POT, settings_challenges, "§6ForceItem-Challenge", " ", "" + returnSettingsState(forceItemChallenge));
+        setItem(10, Material.NETHER_STAR, settings_challenges, "§6RandomDrops-Challenge", " ", "" + returnSettingsState(randomDropsChallenge));
+        setItem(11, Material.STONE_SWORD, settings_challenges, "§6RandomCrafting-Challenge", " ", "" + returnSettingsState(randomCraftingChallenge));
 
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> player.openInventory(gui), 1L);
     }
@@ -120,6 +122,12 @@ public class SettingsGUI implements Listener, CommandExecutor {
                 break;
             case 7:
                 forceItemChallenge = !forceItemChallenge;
+                break;
+            case 10:
+                randomDropsChallenge = !randomDropsChallenge;
+                break;
+            case 11:
+                randomCraftingChallenge = !randomCraftingChallenge;
                 break;
             default:
                 break;

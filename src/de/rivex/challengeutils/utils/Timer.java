@@ -3,10 +3,10 @@ package de.rivex.challengeutils.utils;
 import de.rivex.challengeutils.challenges.ForceBlock;
 import de.rivex.challengeutils.challenges.ForceItem;
 import de.rivex.challengeutils.challenges.ForceY;
+import de.rivex.challengeutils.challenges.RandomDrops;
 import de.rivex.challengeutils.main.Main;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -34,6 +34,7 @@ public class Timer implements CommandExecutor {
                 players.sendTitle("§a§lTimer gestartet", "", 20, 20, 20);
             }
             startForceChallenges();
+            RandomDrops.randomize();
         } else Bukkit.broadcastMessage("§7[§5Timer§7] §c§lTimer läuft bereits.");
     }
 
