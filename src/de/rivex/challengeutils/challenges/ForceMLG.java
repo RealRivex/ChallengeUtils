@@ -74,7 +74,7 @@ public class ForceMLG implements Listener {
             }, rndTime);
         }
     }
-
+    
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
