@@ -29,6 +29,7 @@ public class SettingsGUI implements Listener, CommandExecutor {
     public static boolean forceItemChallenge;
     public static boolean randomDropsChallenge;
     public static boolean randomCraftingChallenge;
+    public static boolean forceMLG;
 
     //GUIs
     private final Inventory settings_challenges = Bukkit.createInventory(null, 54, "§b§lChallenge-Settings");
@@ -60,6 +61,7 @@ public class SettingsGUI implements Listener, CommandExecutor {
         setItem(7, Material.FLOWER_POT, settings_challenges, "§6ForceItem-Challenge", " ", "" + returnSettingsState(forceItemChallenge));
         setItem(10, Material.NETHER_STAR, settings_challenges, "§6RandomDrops-Challenge", " ", "" + returnSettingsState(randomDropsChallenge));
         setItem(11, Material.STONE_SWORD, settings_challenges, "§6RandomCrafting-Challenge", " ", "" + returnSettingsState(randomCraftingChallenge));
+        setItem(12, Material.WATER_BUCKET, settings_challenges, "§6ForceMLG-Challenge", " ", "" + returnSettingsState(forceMLG));
 
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> player.openInventory(gui), 1L);
     }
@@ -128,6 +130,9 @@ public class SettingsGUI implements Listener, CommandExecutor {
                 break;
             case 11:
                 randomCraftingChallenge = !randomCraftingChallenge;
+                break;
+            case 12:
+                forceMLG = !forceMLG;
                 break;
             default:
                 break;

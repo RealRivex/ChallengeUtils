@@ -36,6 +36,7 @@ public class RandomDrops implements Listener {
             Material normalMaterial = event.getBlock().getType();
             Material randomMaterial = randomMaterials.get(normalMaterial);
             World world = event.getBlock().getWorld();
+            event.setDropItems(false);
             world.dropItemNaturally(event.getBlock().getLocation(), new ItemStack(randomMaterial));
             System.out.println(randomMaterial);
         }

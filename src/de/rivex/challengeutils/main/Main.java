@@ -57,5 +57,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new Break(), this);
         Bukkit.getPluginManager().registerEvents(new Sneak(), this);
         Bukkit.getPluginManager().registerEvents(new RandomDrops(), this);
+        Bukkit.getPluginManager().registerEvents(new RandomCrafting(), this);
+        Bukkit.getPluginManager().registerEvents(new ForceMLG(), this);
     }
 }

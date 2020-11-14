@@ -3,10 +3,10 @@ package de.rivex.challengeutils.challenges;
 import de.rivex.challengeutils.utils.SettingsGUI;
 import de.rivex.challengeutils.utils.Timer;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -31,13 +31,14 @@ public class RandomCrafting implements Listener {
     }
 
     @EventHandler
-    public void onBreak(BlockBreakEvent event) {
-        if (SettingsGUI.randomDropsChallenge && Timer.timerRunning) {
-            Material normalMaterial = event.getBlock().getType();
-            Material randomMaterial = randomMaterials.get(normalMaterial);
-            World world = event.getBlock().getWorld();
-            world.dropItemNaturally(event.getBlock().getLocation(), new ItemStack(randomMaterial));
-            System.out.println(randomMaterial);
+    public void onCrafting(PrepareItemCraftEvent event) {
+        if (SettingsGUI.randomCraftingChallenge && Timer.timerRunning) {
+            Material mat = event.getRecipe().getResult().getType();
+            int amount = event.getRecipe().getResult().getAmount();
+            Material randomCrafting = randomMaterials.get(mat);
+            if (randomCrafting.isItem()) {
+                event.getInventory().setResult(new ItemStack(randomCrafting, amount));
+            }
         }
     }
 }

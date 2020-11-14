@@ -1,9 +1,6 @@
 package de.rivex.challengeutils.utils;
 
-import de.rivex.challengeutils.challenges.ForceBlock;
-import de.rivex.challengeutils.challenges.ForceItem;
-import de.rivex.challengeutils.challenges.ForceY;
-import de.rivex.challengeutils.challenges.RandomDrops;
+import de.rivex.challengeutils.challenges.*;
 import de.rivex.challengeutils.main.Main;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -35,6 +32,7 @@ public class Timer implements CommandExecutor {
             }
             startForceChallenges();
             RandomDrops.randomize();
+            RandomCrafting.randomize();
         } else Bukkit.broadcastMessage("§7[§5Timer§7] §c§lTimer läuft bereits.");
     }
 
@@ -61,6 +59,7 @@ public class Timer implements CommandExecutor {
         ForceBlock.start();
         ForceItem.start();
         ForceY.start();
+        ForceMLG.start();
     }
 
     private static void startTimer() {
