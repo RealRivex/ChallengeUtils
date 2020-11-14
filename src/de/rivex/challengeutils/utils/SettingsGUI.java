@@ -31,16 +31,12 @@ public class SettingsGUI implements Listener, CommandExecutor {
     public static boolean randomCraftingChallenge;
     public static boolean forceMLG;
 
+    //Gamerules states
+    public static boolean cutcleanGamerule;
+
     //GUIs
     private final Inventory settings_challenges = Bukkit.createInventory(null, 54, "§b§lChallenge-Settings");
-
-    private void setItem(int slot, Material material, Inventory inventory, String displayName) {
-        ItemStack itemStack = new ItemStack(material);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(displayName);
-        itemStack.setItemMeta(itemMeta);
-        inventory.setItem(slot, itemStack);
-    }
+    private final Inventory settings_gamerules = Bukkit.createInventory(null, 54, "§b§lGamerule-Settings");
 
     private void setItem(int slot, Material material, Inventory inventory, String displayName, String... lore) {
         ItemStack itemStack = new ItemStack(material);
@@ -63,6 +59,8 @@ public class SettingsGUI implements Listener, CommandExecutor {
         setItem(11, Material.STONE_SWORD, settings_challenges, "§6RandomCrafting-Challenge", " ", "" + returnSettingsState(randomCraftingChallenge));
         setItem(12, Material.WATER_BUCKET, settings_challenges, "§6ForceMLG-Challenge", " ", "" + returnSettingsState(forceMLG));
 
+        setItem(1, Material.WATER_BUCKET, settings_gamerules, "§6CutClean", " ", "" + returnSettingsState(cutcleanGamerule));
+
         Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> player.openInventory(gui), 1L);
     }
 
@@ -71,8 +69,11 @@ public class SettingsGUI implements Listener, CommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 0) {
-                updateGUI(player, settings_challenges);
-
+                if (cmd.getName().equalsIgnoreCase("settings")) {
+                    updateGUI(player, settings_challenges);
+                } else if (cmd.getName().equalsIgnoreCase("gamerules")) {
+                    updateGUI(player, settings_gamerules);
+                }
             } else player.sendMessage("§cSyntax: §7/settings");
         } else sender.sendMessage(ChatColor.RED + "Dazu musst du ein Spieler sein...");
         return false;
@@ -89,6 +90,9 @@ public class SettingsGUI implements Listener, CommandExecutor {
                     event.setCancelled(true);
                     switchSettingsState(event.getSlot());
 
+                case "§b§lGamerule-Settings":
+                    event.setCancelled(true);
+                    switchGamerulesStates(event.getSlot());
                 default:
             }
         }
@@ -139,6 +143,19 @@ public class SettingsGUI implements Listener, CommandExecutor {
         }
         for (Player players : Bukkit.getOnlinePlayers()) {
             updateGUI(players, settings_challenges);
+        }
+    }
+
+    private void switchGamerulesStates(int slot) {
+        switch (slot) {
+            case 1:
+                cutcleanGamerule = !cutcleanGamerule;
+                break;
+            default:
+                break;
+        }
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            updateGUI(players, settings_gamerules);
         }
     }
 }
