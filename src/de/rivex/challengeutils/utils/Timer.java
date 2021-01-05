@@ -31,8 +31,6 @@ public class Timer implements CommandExecutor {
                 players.sendTitle("§a§lTimer gestartet", "", 20, 20, 20);
             }
             startForceChallenges();
-            RandomDrops.randomize();
-            RandomCrafting.randomize();
         } else Bukkit.broadcastMessage("§7[§5Timer§7] §c§lTimer läuft bereits.");
     }
 

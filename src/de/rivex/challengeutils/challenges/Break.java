@@ -14,7 +14,6 @@ public class Break implements Listener {
 
     @EventHandler
     public void onPlace(BlockBreakEvent event) {
-
         if (SettingsGUI.breakChallenge && Timer.timerRunning) {
             Player player = event.getPlayer();
             event.setCancelled(true);

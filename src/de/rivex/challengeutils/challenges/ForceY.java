@@ -11,15 +11,18 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ForceY {
+
     private static BukkitTask collectRunnableTask;
     private static BukkitTask chooseInstruction;
     private static int collectTime;
     private static BukkitTask collectTask;
     private static FileConfiguration config = Main.getPlugin().getConfig();
+    private static ArrayList<Player> passedPlayers = new ArrayList<>();
 
     public static void start() {
         if (SettingsGUI.forceYChallenge) {
@@ -49,13 +52,19 @@ public class ForceY {
                     collectRunnableTask.cancel();
                     for (Player players : Bukkit.getOnlinePlayers()) {
                         if (players.getLocation().getY() == y) {
-                            players.sendMessage(config.getString("forceY.passedMessage"));
-                            if (!chooseInstruction.isCancelled()) {
-                                chooseInstruction.cancel();
-                            }
-                            if (!collectTask.isCancelled()) {
-                                collectTask.cancel();
-                            }
+                            passedPlayers.add(players);
+                            Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
+                                if (passedPlayers.size() == Bukkit.getOnlinePlayers().size()) {
+                                    players.sendMessage(config.getString("forceBiome.passedMessage"));
+                                    if (!chooseInstruction.isCancelled()) {
+                                        chooseInstruction.cancel();
+                                    }
+                                    if (!collectTask.isCancelled()) {
+                                        collectTask.cancel();
+                                    }
+                                    passedPlayers.clear();
+                                }
+                            }, 20L);
                             start();
                         } else {
                             Timer.time = 0;
@@ -69,6 +78,7 @@ public class ForceY {
                             if (!collectTask.isCancelled()) {
                                 collectTask.cancel();
                             }
+                            passedPlayers.clear();
                         }
                     }
                 }, rndTime2);

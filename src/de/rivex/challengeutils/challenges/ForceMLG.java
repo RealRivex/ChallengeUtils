@@ -21,6 +21,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ForceMLG implements Listener {
+
     private static ArrayList<Player> passedList = new ArrayList<>();
     private static FileConfiguration config = Main.getPlugin().getConfig();
     private static ArrayList<Block> blockList = new ArrayList<>();
@@ -31,7 +32,7 @@ public class ForceMLG implements Listener {
     private static BukkitTask task;
 
     public static void start() {
-        if (SettingsGUI.forceMLG) {
+        if (SettingsGUI.forceMLGChallenge) {
             int min = config.getInt("forceMLG.minTime");
             int max = config.getInt("forceMLG.maxTime");
             int minY = config.getInt("forceMLG.minY");
@@ -74,7 +75,7 @@ public class ForceMLG implements Listener {
             }, rndTime);
         }
     }
-    
+
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();

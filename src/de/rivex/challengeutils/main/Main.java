@@ -2,6 +2,8 @@ package de.rivex.challengeutils.main;
 
 import de.rivex.challengeutils.challenges.*;
 import de.rivex.challengeutils.gamerules.DamageIndicator;
+import de.rivex.challengeutils.gamerules.Timber;
+import de.rivex.challengeutils.listeners.ForceLoadChunks;
 import de.rivex.challengeutils.listeners.JoinListener;
 import de.rivex.challengeutils.listeners.QuitListener;
 import de.rivex.challengeutils.utils.Reset;
@@ -9,43 +11,52 @@ import de.rivex.challengeutils.utils.SettingsGUI;
 import de.rivex.challengeutils.utils.Timer;
 import de.rivex.challengeutils.utils.UpdateChecker;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Main extends JavaPlugin {
-    public static boolean devMode;
+    public static boolean devMode = false;
+    public static UpdateChecker checker;
     private static Main plugin;
 
     public static Main getPlugin() {
         return plugin;
     }
 
+    private void deleteWorld(File path) {
+        if (path.exists()) {
+            File[] files = path.listFiles();
+            if (files == null)
+                return;
+            for (File currentFile : files) {
+                if (currentFile.isDirectory()) {
+                    deleteWorld(currentFile);
+                } else if (!currentFile.getName().equals("session.lock")) {
+                    currentFile.delete();
+                }
+            }
+        }
+    }
+
     @Override
     public void onEnable() {
         plugin = this;
-        saveDefaultConfig();
         register();
-        if (getConfig().getBoolean("reset")) {
-            try {
-                FileUtils.deleteDirectory(new File(getServer().getWorldContainer().getAbsolutePath() + "/" + getConfig().getString("worldName")));
-                FileUtils.deleteDirectory(new File(getServer().getWorldContainer().getAbsolutePath() + "/" + getConfig().getString("worldName") + "_nether"));
-                FileUtils.deleteDirectory(new File(getServer().getWorldContainer().getAbsolutePath() + "/" + getConfig().getString("worldName") + "_the_end"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            getConfig().set("reset", false);
-            saveConfig();
+        saveDefaultConfig();
+        checker = UpdateChecker.init(this, 85731);
+    }
 
-            UpdateChecker.init(this, 85731);
-        }
+    @Override
+    public void onLoad() {
+        plugin = this;
+        resetWorlds();
     }
 
     private void register() {
         getCommand("timer").setExecutor(new Timer());
         getCommand("settings").setExecutor(new SettingsGUI());
+        getCommand("gamerules").setExecutor(new SettingsGUI());
         getCommand("reset").setExecutor(new Reset());
 
         Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
@@ -56,8 +67,23 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new CraftingTable(), this);
         Bukkit.getPluginManager().registerEvents(new Break(), this);
         Bukkit.getPluginManager().registerEvents(new Sneak(), this);
-        Bukkit.getPluginManager().registerEvents(new RandomDrops(), this);
-        Bukkit.getPluginManager().registerEvents(new RandomCrafting(), this);
         Bukkit.getPluginManager().registerEvents(new ForceMLG(), this);
+        Bukkit.getPluginManager().registerEvents(new ForceLoadChunks(), this);
+        Bukkit.getPluginManager().registerEvents(new OneLine(), this);
+        Bukkit.getPluginManager().registerEvents(new Timber(), this);
+        Bukkit.getPluginManager().registerEvents(new DamageClear(), this);
+    }
+
+    public void resetWorlds() {
+        if (!this.getConfig().getBoolean("reset"))
+            return;
+        String worldName = this.getConfig().getString("worldName");
+        String[] worlds = {worldName, worldName + "_nether", worldName + "_the_end"};
+        for (String currentWorld : worlds) {
+            File worldFolder = new File(currentWorld);
+            deleteWorld(worldFolder);
+        }
+        Main.getPlugin().getConfig().set("reset", false);
+        Main.getPlugin().saveConfig();
     }
 }

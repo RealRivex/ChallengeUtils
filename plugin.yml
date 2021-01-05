@@ -1,10 +1,11 @@
 name: ChallengeUtils
 main: de.rivex.challengeutils.main.Main
 api-version: 1.13
-version: 1.0_RELEASE
+version: 1.2
 author: Rivex
 load: STARTUP
 commands:
   timer:
   settings:
+  gamerules:
   reset:

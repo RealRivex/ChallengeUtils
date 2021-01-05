@@ -8,6 +8,7 @@ common:
   deathMessage: "§9<player> §6ist gestorben §7[§9<cause>§7]" #Nachricht beim Tod. Parameter: [<player>, <cause>]
   joinMessage: "§a§l» §8<player>" #Nachricht beim betreten des Servers. Parameter: [<player>]
   quitMessage: "§a§l« §8<player>" #Nachricht beim verlassen des Servers. Parameter: [<player>]
+  damageMessage: "§b<player> §6hat §9<amount> Herzen §6Schaden genommen §7[§9<cause>§7]" #Nachricht beim erhalten von Schaden (Damage Indicator). Parameter: [<player>, <amount>, <cause>]
 
 noBlockBreak:
   punishMessage: "§9<player> §chat einen Block abgebaut. §7[§9<block>§7]" #Nachricht beim Versagen. Parameter: [<block>, <BLOCK>, <player>]
@@ -54,4 +55,11 @@ forceMLG:
   maxTime: 12000 #In Ticks (1 Sekunde = 20 Ticks)
   minY: 25 #Min. Teleport-Höhe Über der Plattform
   maxY: 50 #Max. Teleport-Höhe Über der Plattform
-#
+
+forceBiome:
+  punishMessage: "§7[§5ForceItem§7] §cDie Anweisung wurde nicht von allen Spielern befolgt." #Nachricht beim Versagen.
+  passedMessage: "§7[§5ForceItem§7] §aDu hast die Anweisung befolgt." #Nachricht beim passen.
+  minTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)
+  maxTime: 12000 #In Ticks (1 Sekunde = 20 Ticks)
+  minCollectTime: 3600 #In Ticks (1 Sekunde = 20 Ticks)
+  maxCollectTime: 6000 #In Ticks (1 Sekunde = 20 Ticks)

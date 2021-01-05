@@ -15,20 +15,24 @@ public class Reset implements CommandExecutor {
             Player player = (Player) sender;
             if (Main.getPlugin().getConfig().getBoolean("resetConfirm")) {
                 if (args.length == 1 && args[0].equalsIgnoreCase("confirm")) {
+                    Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
+                        Main.getPlugin().getConfig().set("reset", true);
+                        Main.getPlugin().saveConfig();
+                        for (Player players : Bukkit.getOnlinePlayers()) {
+                            players.kickPlayer(Main.getPlugin().getConfig().getString("resetMessage"));
+                        }
+                        Bukkit.spigot().restart();
+                    }, 60L);
+                } else player.sendMessage("§cSyntax: §7/reset <confirm>");
+            } else {
+                Bukkit.getScheduler().runTaskLater(Main.getPlugin(), () -> {
+                    Main.getPlugin().getConfig().set("reset", true);
+                    Main.getPlugin().saveConfig();
                     for (Player players : Bukkit.getOnlinePlayers()) {
                         players.kickPlayer(Main.getPlugin().getConfig().getString("resetMessage"));
                     }
-                    Main.getPlugin().getConfig().set("reset", true);
-                    Main.getPlugin().saveConfig();
                     Bukkit.spigot().restart();
-                } else player.sendMessage("§cSyntax: §7/reset <confirm>");
-            } else {
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    players.kickPlayer(Main.getPlugin().getConfig().getString("resetMessage"));
-                }
-                Main.getPlugin().getConfig().set("reset", true);
-                Main.getPlugin().saveConfig();
-                Bukkit.spigot().restart();
+                }, 60L);
             }
         } else sender.sendMessage("Dazu musst du ein Spieler sein...");
         return false;
